@@ -14,6 +14,11 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <style>
+      div {
+        margin: 20px;
+      }
+    </style>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -27,7 +32,6 @@
     <title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -40,4 +44,15 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+  !(function(history) {
+    let pushState = history.pushState;
+    history.pushState = function(state, title, url) {
+      if(typeof window.onpushstate) {
+        window.onpushstate(...arguments);
+      }
+      return pushState.apply(this, arguments);
+    }
+  })(window.history);
+  </script>
 </html>
