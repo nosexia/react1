@@ -4,9 +4,10 @@ import { createStore } from '../redux';
 function logger({getState, dispatch}) {
   return function(next) {
     return function(action) {
-      console.log(getState().counter1);
+      console.log('老状态的所有state值', getState());
+      console.log('老状态的中只包含counter1的只', getState().counter1);
       next(action);
-      console.log(getState().counter1);
+      // console.log(getState().counter1);
     }
   }
 }
@@ -55,5 +56,5 @@ function applyMiddleware(middleware) {
 }
 
 
-let store = applyMiddleware(proimse)(createStore)(reducers);
+let store = applyMiddleware(logger)(createStore)(reducers);
 export default store;
